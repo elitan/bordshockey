@@ -2,17 +2,27 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const S = {};
-S.Layout = styled.div`
-{}
+S.LayoutMainContainer = styled.div`
+{
+  display: grid;
+  grid-template-columns: [full-start] minmax(3rem, 1fr) [main-start] minmax(min-content, 120rem) [main-end] minmax(3rem, 1fr) [full-end];
+
+  > .main-container {
+    grid-column: main;
+  }
+}
 `;
 
-class Layout extends Component {
+class LayoutMainContainer extends Component {
   render() {
     return (
-      <S.Layout>
-        Layout
-      </S.Layout>
+      <S.LayoutMainContainer>
+        <div className="main-container">
+          {this.props.children}
+        </div>
+      </S.LayoutMainContainer>
     );
   }
 }
-export default Layout;
+
+export default LayoutMainContainer;
