@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
+import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
-import PrivateRoute from './Components/PrivateRoute';
+import client from './apollo/client';
 import Dashboard from './Components/Dashboard';
-import Register from './Components/Register';
-import ActivateAccount from './Components/ActivateAccount';
-import NewPassword from './Components/NewPassword';
 import Login from './Components/Login';
 
 class RouterComponent extends Component {
@@ -14,37 +12,15 @@ class RouterComponent extends Component {
       <Router>
         <Switch>
 
-          <PrivateRoute
-            exact
-            path="/"
-            render={(props) => (
-              <Dashboard {...props} />
-            )}
-          />
-          <PrivateRoute
-            exact
-            path="/other"
-            render={(props) => (
-              <>other route</>
-            )}
-          />
-
-
-          <Route
-            exact
-            path="/register"
-            render={(props) => (
-              <Register {...props} />
-            )}
-          />
-
-          <Route
-            exact
-            path="/activate-account/:secret_token"
-            render={(props) => (
-              <ActivateAccount {...props} />
-            )}
-          />
+          <ApolloProvider client={client}>
+            <Route
+              exact
+              path="/"
+              render={(props) => (
+                <Dashboard {...props} />
+              )}
+            />
+          </ApolloProvider>
 
           <Route
             exact
@@ -53,16 +29,6 @@ class RouterComponent extends Component {
               <Login {...props} />
             )}
           />
-
-          <Route
-            exact
-            path="/new-password/:secret_token"
-            render={(props) => (
-              <NewPassword {...props} />
-            )}
-          />
-
-
 
         </Switch>
       </Router>

@@ -1,123 +1,70 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { withApollo, Subscription } from 'react-apollo';
-import nhost from '../nhost';
+import { Subscription } from 'react-apollo';
+import styled from 'styled-components';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
-import {
-  S_GET_TODOS,
-  INSERT_TODO,
-  UPDATE_TODO,
-} from './gql/Todos';
+import { S_GET_TABLEZ } from './gql/Hasura';
 
-class Dashboard extends Component {
+const S = {};
+S.DashBoard = styled.div`
+{
 
-  constructor(props) {
-    super(props);
+}
+`;
 
-    this.state = {
-      todo_input: '',
-    };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.toggleTodoItem = this.toggleTodoItem.bind(this);
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-
-    const options = {
-      mutation: INSERT_TODO,
-      variables: {
-        todo: {
-          todo: this.state.todo_input,
-        },
-      },
-    };
-
-    this.props.client.mutate(options);
-
-    this.setState({
-      todo_input: '',
-    });
-  }
-
-  toggleTodoItem(todo) {
-
-    const options = {
-      mutation: UPDATE_TODO,
-      variables: {
-        id: todo.id,
-        todo: {
-          done: !todo.done,
-        },
-      },
-    };
-
-    this.props.client.mutate(options);
-  }
-
+class DashBoard extends Component {
   render() {
     return (
-      <>
-        <div>
+      <S.DashBoard>
+        <Subscription
+          subscription={S_GET_TABLEZ}
+        >
+          {({ loading, error, data }) => {
 
-          <Link to={`/other`}>other</Link>
+            if (loading) return 'Loading...';
+            if (error) return `Error! ${error.message}`;
 
-          <span onClick={() => {
-            nhost.logout();
-            this.props.history.push('/login');
-          }}>
-            Log out
-          </span>
+            console.log(data);
 
-        </div>
-        <div>
-          <div>
-            <form
-              onSubmit={this.handleSubmit}
-            >
-              <input
-                type="text"
-                onChange={e => this.setState({todo_input: e.target.value})}
-                value={this.state.todo_input}
-              />
-              <input
-                type="submit"
-                value="add todo"
-              />
-            </form>
-          </div>
-          <Subscription
-            subscription={S_GET_TODOS}
-          >
-            {({ loading, error, data }) => {
+            const { tablez } = data;
 
-              if (loading) return 'Loading...';
-              if (error) return `Error! ${error.message}`;
-
-              return (
-                <ul>
-                  {data.todos.map(item => {
-                    return (
-                      <li
-                        key={item.id}
-                        onClick={() => {
-                          this.toggleTodoItem(item);
-                        }}
-                      >
-                        {item.done && <s>{item.todo}</s>}
-                        {!item.done && <>{item.todo}</>}
-                      </li>
-                    );
-                  })}
-                </ul>
-              );
-            }}
-          </Subscription>
-        </div>
-      </>
+            return (
+              <Paper>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>#</TableCell>
+                      <TableCell>Name</TableCell>
+                      <TableCell>Points</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {tablez.map((row, i) => (
+                      <TableRow key={i}>
+                        <TableCell>
+                          {i + 1}
+                        </TableCell>
+                        <TableCell>
+                          {row.name}
+                        </TableCell>
+                        <TableCell>
+                          {row.points}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Paper>
+            );
+          }}
+        </Subscription>
+      </S.DashBoard>
     );
   }
 }
-
-export default withApollo(withRouter(Dashboard));
+export default DashBoard;

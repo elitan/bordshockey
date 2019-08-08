@@ -7,21 +7,33 @@ import { split } from 'apollo-link';
 import { getMainDefinition } from 'apollo-utilities';
 import nhost from '../nhost';
 
-const wsurl = `wss://hasura-yi8ci911.nhost.io/v1alpha1/graphql`;
-const httpurl = `https://hasura-yi8ci911.nhost.io/v1alpha1/graphql`;
+const wsurl = `wss://hasura-yi8ci911.nhost.io/v1/graphql`;
+const httpurl = `https://hasura-yi8ci911.nhost.io/v1/graphql`;
 
-const jwt_token = nhost.getJWTToken();
 
 // create the web socket link
 const wsLink = new WebSocketLink({
   uri: wsurl,
   options: {
     reconnect: true,
-    connectionParams: () => ({
-      headers: {
-        authorization: jwt_token ? `Bearer ${jwt_token}` : '',
-      },
-    }),
+    connectionParams: () => {
+      const jwt_token = nhost.getJWTToken();
+
+      let auth_headers = {
+      };
+
+      if (jwt_token) {
+        console.log('jwt token set:');
+        console.log({jwt_token});
+        auth_headers.authorization = `Bearer ${jwt_token}`;
+      }
+
+      console.log({auth_headers});
+
+      return {
+        headers: auth_headers,
+      };
+    },
   },
 });
 
@@ -31,11 +43,21 @@ let httpLink = new HttpLink({
 
 const authLink = setContext((a, { headers }) => {
   const jwt_token = nhost.getJWTToken();
+
+  let auth_headers = {
+    ...headers,
+  };
+
+  if (jwt_token) {
+    console.log('jwt token set:');
+    console.log({jwt_token});
+    auth_headers.authorization = `Bearer ${jwt_token}`;
+  }
+
+  console.log({auth_headers});
+
   return {
-    headers: {
-      ...headers,
-      authorization: jwt_token ? `Bearer ${jwt_token}` : '',
-    },
+    headers: auth_headers,
   };
 });
 
@@ -49,7 +71,9 @@ const link = split(
   httpLink
 );
 
-export const client = new ApolloClient({
+const client = new ApolloClient({
   link: authLink.concat(link),
   cache: new InMemoryCache(),
 });
+
+export default client;
