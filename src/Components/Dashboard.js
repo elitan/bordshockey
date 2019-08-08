@@ -50,7 +50,7 @@ class DashBoard extends Component {
                     </TableHead>
                     <TableBody>
                       {tablez.map((row, i) => (
-                        <TableRow key={i}>
+                        <TableRow key={i} hover>
                           <TableCell>
                             {i + 1}
                           </TableCell>
@@ -90,7 +90,7 @@ class DashBoard extends Component {
                     </TableHead>
                     <TableBody>
                       {matches.map((match, i) => (
-                        <TableRow key={i}>
+                        <TableRow key={i} hover>
                           <TableCell>
                             {match.home_team_name}
                           </TableCell>
