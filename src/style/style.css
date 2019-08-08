@@ -1,0 +1,63 @@
+:root {
+  --color-primary: #1f89f0;
+  --color-primary-light: #2e81c0;
+  --color-primary-dark: #005493;
+  --color-primary-light-2: #2188ed;
+
+
+  --color-secondary-default: #F07752;
+  --color-secondary-light: #f28f71;
+  --color-secondary-dark: #c56244;
+
+  --color-grey-light-1: #F8F8F8;
+  --color-grey-light-2: #F5F5F5;
+  --color-grey-light-3: #f0eeee;
+  --color-grey-light-4: #ccc;
+  --color-grey-dark-1: #333;
+  --color-grey-dark-2: #777;
+  --color-grey-dark-3: #999;
+
+  --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, .3);
+  --shadow-medium: 0 0 3rem rgba(0, 0, 0, .4);
+  --shadow-light: 0 2rem 5rem rgba(0, 0, 0, .06);
+
+  --line: 1px solid var(--color-grey-light-3);
+  --line-dark-1: 1px solid var(--color-grey-dark-1);
+  --line-dark-2: 1px solid var(--color-grey-dark-2);
+
+  --layout-padding: 3rem;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-grey-dark-1);
+  min-height: 100vh;
+  font-size: 1.6rem;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: blue;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+.snackbar {
+  font-size: 1.6rem !important;
+}

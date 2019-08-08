@@ -9,12 +9,15 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Layout from './Layout';
 
-import { S_GET_TABLEZ } from './gql/Hasura';
+import { S_GET_TABLEZ, S_GET_MATCHES } from './gql/Hasura';
 
 const S = {};
 S.DashBoard = styled.div`
 {
 
+  .paper {
+    margin: 3rem 0 3rem 0;
+  }
 }
 `;
 
@@ -36,7 +39,7 @@ class DashBoard extends Component {
               const { tablez } = data;
 
               return (
-                <Paper>
+                <Paper className="paper paper-table">
                   <Table>
                     <TableHead>
                       <TableRow>
@@ -56,6 +59,46 @@ class DashBoard extends Component {
                           </TableCell>
                           <TableCell>
                             {row.points}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </Paper>
+              );
+            }}
+          </Subscription>
+          <Subscription
+            subscription={S_GET_MATCHES}
+          >
+            {({ loading, error, data }) => {
+
+              if (loading) return 'Loading...';
+              if (error) return `Error! ${error.message}`;
+
+              console.log(data);
+              const { matches } = data;
+              return (
+                <Paper className="paper paper-matches">
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Hemmalag</TableCell>
+                        <TableCell>Bortalag</TableCell>
+                        <TableCell></TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {matches.map((match, i) => (
+                        <TableRow key={i}>
+                          <TableCell>
+                            {match.home_team_name}
+                          </TableCell>
+                          <TableCell>
+                            {match.away_team_name}
+                          </TableCell>
+                          <TableCell>
+                            {match.home_team_score} - {match.away_team_score}
                           </TableCell>
                         </TableRow>
                       ))}
