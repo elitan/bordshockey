@@ -9,12 +9,22 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Layout from './Layout';
+import Banner from '../images/banner.png';
 
 import { S_GET_TABLEZ, S_GET_MATCHES } from './gql/Hasura';
 
 const S = {};
 S.DashBoard = styled.div`
 {
+
+  .banner {
+    background-image: url(${Banner});
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    height: 300px;
+    width: 100%;
+  }
 
   .paper {
     margin: 3rem 0 3rem 0;
@@ -48,6 +58,8 @@ class DashBoard extends Component {
     return (
       <Layout>
         <S.DashBoard>
+          <div className="banner">
+          </div>
           <Subscription
             subscription={S_GET_TABLEZ}
           >
