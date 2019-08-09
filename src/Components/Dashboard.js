@@ -46,6 +46,7 @@ class DashBoard extends Component {
                         <TableCell>#</TableCell>
                         <TableCell>Name</TableCell>
                         <TableCell>Points</TableCell>
+                        <TableCell>Matches</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -59,6 +60,9 @@ class DashBoard extends Component {
                           </TableCell>
                           <TableCell>
                             {row.points}
+                          </TableCell>
+                          <TableCell>
+                            {row.matches_played}
                           </TableCell>
                         </TableRow>
                       ))}

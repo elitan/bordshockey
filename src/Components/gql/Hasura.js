@@ -5,6 +5,7 @@ subscription {
   tablez (order_by: { points: desc}) {
     name
     points
+    matches_played
   }
 }
 `;
