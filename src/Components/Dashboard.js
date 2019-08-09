@@ -10,6 +10,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Layout from './Layout';
 import Banner from '../images/banner.png';
+import { PlayCircleFilledWhite } from '@material-ui/icons';
+import { IconButton } from '@material-ui/core';
 
 import { S_GET_TABLEZ, S_GET_MATCHES } from './gql/Hasura';
 
@@ -40,6 +42,10 @@ S.DashBoard = styled.div`
     .match_loss {
       color: #692323;
     }
+  }
+
+  .youtube-button {
+    color: #df3131;
   }
 }
 `;
@@ -144,6 +150,7 @@ class DashBoard extends Component {
                         <TableCell>Hemmalag</TableCell>
                         <TableCell>Bortalag</TableCell>
                         <TableCell></TableCell>
+                        <TableCell></TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -195,6 +202,19 @@ class DashBoard extends Component {
                             </TableCell>
                             <TableCell>
                               {match.home_team_score} - {match.away_team_score}
+                            </TableCell>
+                            <TableCell>
+                              {match.youtube_key &&
+                                <a
+                                  href={`https://www.youtube.com/watch?v=${match.youtube_key}`}
+                                  rel="noopener noreferrer"
+                                  target="_blank"
+                                >
+                                  <IconButton size="small" className="youtube-button">
+                                    <PlayCircleFilledWhite />
+                                  </IconButton>
+                                </a>
+                              }
                             </TableCell>
                           </TableRow>
                         );

@@ -1,9 +1,8 @@
 {
   "request": {
-    "url": "	https://hasura-yi8ci911.nhost.io",
+    "url": "https://hasura-yi8ci911.nhost.io/v1/graphql",
     "headers": {
       "x-hasura-admin-secret": "1d4dadbca36e460bfa25bebae567c073",
-      "x-hasura-user-role": "admin"
     }
   }
 }

@@ -24,6 +24,7 @@ subscription {
     away_team_name
     away_team_score
     away_team_points
+    youtube_key
   }
 }
 `;
