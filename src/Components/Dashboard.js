@@ -147,8 +147,8 @@ class DashBoard extends Component {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell>Hemmalag</TableCell>
-                        <TableCell>Bortalag</TableCell>
+                        <TableCell>Home Team</TableCell>
+                        <TableCell>Away Team</TableCell>
                         <TableCell></TableCell>
                         <TableCell></TableCell>
                       </TableRow>
