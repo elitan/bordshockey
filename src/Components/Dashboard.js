@@ -24,7 +24,11 @@ S.DashBoard = styled.div`
     background: #e8f7ff;
 
     .match_win {
-      font-weight: bold;
+      color: #23692e;
+    }
+
+    .match_loss {
+      color: #692323;
     }
   }
 }
@@ -152,10 +156,12 @@ class DashBoard extends Component {
 
                         const home_classes = classNames({
                           match_win: home_team_win,
+                          match_loss: away_team_win,
                         });
 
                         const away_classes = classNames({
                           match_win: away_team_win,
+                          match_loss: home_team_win,
                         });
 
 
