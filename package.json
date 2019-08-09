@@ -10,6 +10,7 @@
     "apollo-link-context": "^1.0.17",
     "apollo-link-http": "^1.5.14",
     "apollo-link-ws": "^1.0.17",
+    "classnames": "^2.2.6",
     "graphql": "^14.3.0",
     "graphql-tag": "^2.10.1",
     "jsonwebtoken": "^8.5.1",
