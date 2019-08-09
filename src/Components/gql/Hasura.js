@@ -7,6 +7,8 @@ subscription {
     name
     points
     matches_played
+    goals_for
+    goals_against
   }
 }
 `;

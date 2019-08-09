@@ -61,6 +61,8 @@ class DashBoard extends Component {
                       <TableRow>
                         <TableCell>#</TableCell>
                         <TableCell>Name</TableCell>
+                        <TableCell>GF</TableCell>
+                        <TableCell>GA</TableCell>
                         <TableCell>Matches</TableCell>
                         <TableCell>Points</TableCell>
                       </TableRow>
@@ -87,6 +89,12 @@ class DashBoard extends Component {
                           </TableCell>
                           <TableCell>
                             {team.name}
+                          </TableCell>
+                          <TableCell>
+                            {team.goals_for}
+                          </TableCell>
+                          <TableCell>
+                            {team.goals_against}
                           </TableCell>
                           <TableCell>
                             {team.matches_played}
