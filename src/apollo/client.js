@@ -20,7 +20,6 @@ const wsLink = new WebSocketLink({
       return {
         headers: {
           authorization: jwt_token ? `Bearer ${jwt_token}` : '',
-          ...param_headers,
         },
       };
     },
@@ -37,7 +36,6 @@ const authLink = setContext((a, { headers }) => {
     headers: {
       ...headers,
       authorization: jwt_token ? `Bearer ${jwt_token}` : '',
-      ...param_headers,
     },
   };
 });
